@@ -60,6 +60,13 @@ class Predict(Resource):
 
                 save_to_firestore(data_input)
 
+                if float(classification_result['probability']) < 0.9:
+                    result = {
+                        "message": "image not classified"
+                    }
+
+                    return result
+
                 return data_input
 
             else:

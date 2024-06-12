@@ -39,12 +39,6 @@ def image_classification(req_image):
     classification_result = model_classification.predict(
         x, batch_size=1)
 
-    if np.max(classification_result) < 0.9:
-        result = {
-            "message": "image not classified"
-        }
-        return result
-
     result = {
         "class": classess[np.argmax(classification_result)],
         "probability": str(np.max(classification_result))
