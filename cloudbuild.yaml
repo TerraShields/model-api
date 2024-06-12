@@ -1,0 +1,29 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - "build"
+      - "-t"
+      - "us-central1-docker.pkg.dev/$PROJECT_ID/sharingsession-artifact/model-image:$COMMIT_SHA"
+      - "."
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - "push"
+      - "us-central1-docker.pkg.dev/$PROJECT_ID/sharingsession-artifact/model-image:$COMMIT_SHA"
+  - name: "gcr.io/cloud-builders/gcloud"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "api-model"
+      - "--image=us-central1-docker.pkg.dev/$PROJECT_ID/sharingsession-artifact/model-image:$COMMIT_SHA"
+      - "--region=us-central1"
+      - "--cpu=1"
+      - "--memory=2048Mi"
+      - "--allow-unauthenticated"
+      - "--set-secrets=GCP_PROJECT_ID=GCP_PROJECT_ID:latest"
+      - "--set-secrets=GCP_BUCKET_NAME=GCP_BUCKET_NAME:latest"
+      - "--set-secrets=GCP_REPORT_BUCKET_FOLDER=GCP_REPORT_BUCKET_FOLDER:latest"
+      - "--set-secrets=JWT_SECRET=JWT_SECRET:latest"
+images:
+  - "us-central1-docker.pkg.dev/$PROJECT_ID/sharingsession-artifact/model-image:$COMMIT_SHA"
+logsBucket: "gs://sharingsession-bucket/logs"
