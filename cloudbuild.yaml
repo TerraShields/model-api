@@ -16,7 +16,7 @@ steps:
       - "deploy"
       - "api-model"
       - "--image=asia-southeast2-docker.pkg.dev/$PROJECT_ID/model-api/model-image:$COMMIT_SHA"
-      - "--region=us-central1"
+      - "--region=asia-southeast2"
       - "--cpu=1"
       - "--memory=2048Mi"
       - "--allow-unauthenticated"
@@ -26,4 +26,3 @@ steps:
       - "--set-secrets=JWT_SECRET=JWT_SECRET:latest"
 images:
   - "asia-southeast2-docker.pkg.dev/$PROJECT_ID/model-api/model-image:$COMMIT_SHA"
-logsBucket: "gs://sharingsession-bucket/logs"
