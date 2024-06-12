@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-db = firestore.Client()
+db = firestore.Client(project=os.environ.get("GCP_PROJECT_ID"))
 
 app = Flask(__name__)
 jwt = JWTManager(app)
