@@ -40,9 +40,10 @@ def image_classification(req_image):
         x, batch_size=1)
 
     if np.max(classification_result) < 0.9:
-        return jsonify({
+        result = {
             "message": "image not classified"
-        })
+        }
+        return result
 
     result = {
         "class": classess[np.argmax(classification_result)],
