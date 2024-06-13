@@ -69,3 +69,4 @@ Werkzeug
 wrapt
 WTForms
 zipp
+pillow
