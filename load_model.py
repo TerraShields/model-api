@@ -3,7 +3,6 @@ import tensorflow as tf
 from __main__ import app
 from PIL import Image
 import numpy as np
-from flask import jsonify
 
 custom_objects = {"KerasLayer": hub.KerasLayer}
 
