@@ -35,7 +35,7 @@ httpx
 idna
 itsdangerous
 Jinja2
-keras
+keras==2.10.0
 libclang
 Markdown
 numpy
@@ -57,9 +57,9 @@ rsa
 sniffio
 tensorboard
 tensorboard-data-server
-tensorflow
+tensorflow==2.13.0
 tensorflow-estimator
-tensorflow-hub
+tensorflow-hub==0.12.0
 tensorflow-io-gcs-filesystem
 termcolor
 tf-keras
