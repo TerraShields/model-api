@@ -24,6 +24,7 @@ steps:
       - "--set-secrets=GCP_BUCKET_NAME=GCP_BUCKET_NAME:latest"
       - "--set-secrets=GCP_REPORT_BUCKET_FOLDER=GCP_REPORT_BUCKET_FOLDER:latest"
       - "--set-secrets=JWT_SECRET=JWT_SECRET:latest"
+      - "--set-secrets=GROQ_API_KEY=GROQ_API_KEY:latest"
 images:
   - "asia-southeast2-docker.pkg.dev/$PROJECT_ID/model-api/model-image:$COMMIT_SHA"
 logsBucket: "gs://capstone-bucket-bangkit-2024/logs"

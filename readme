@@ -1,0 +1,6 @@
+## TerraShields Model API
+
+### NOTE
+
+- all url need Bearer token except [Login](https://github.com/TerraShields/auth-api?tab=readme-ov-file#login) and [Register](https://github.com/TerraShields/auth-api?tab=readme-ov-file#register)
+- all **Content-Type** are **application/json** except [Update](https://github.com/TerraShields/auth-api?tab=readme-ov-file#update-user)
