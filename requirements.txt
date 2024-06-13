@@ -58,7 +58,7 @@ tensorboard
 tensorboard-data-server
 tensorflow==2.13.0
 tensorflow-estimator
-tensorflow-hub==0.12.0
+tensorflow-hub
 tensorflow-io-gcs-filesystem
 termcolor
 tf-keras
