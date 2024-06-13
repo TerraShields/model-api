@@ -6,7 +6,7 @@
 
 ### BASE URL
 
-- 
+- https://api-model-tpercgplna-et.a.run.app
 
 #### Post report with image
 
@@ -96,7 +96,8 @@
 }
 ```
 
-#### Post report without image
+# IN DEVELOPMENT (i hate py)
+#### Post Chat Bot 
 
 ```http
   POST {{url}}/api/chat
