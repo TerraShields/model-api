@@ -2,5 +2,114 @@
 
 ### NOTE
 
-- all url need Bearer token except [Login](https://github.com/TerraShields/auth-api?tab=readme-ov-file#login) and [Register](https://github.com/TerraShields/auth-api?tab=readme-ov-file#register)
-- all **Content-Type** are **application/json** except [Update](https://github.com/TerraShields/auth-api?tab=readme-ov-file#update-user)
+- all url need Bearer token
+
+### BASE URL
+
+- 
+
+#### Post report with image
+
+```http
+  POST {{url}}/api/report
+```
+
+| Parameter   | Type             | Description   |
+| :---------- | :--------------- | :------------ |
+| `latitude`  | `string`         | **Required**. |
+| `longitude` | `string`         | **Required**. |
+| `sign`      | `string`         | **Required**. |
+| `image`     | `jpg, jpeg, png` | **Required**. |
+
+- success return body
+
+```json
+{
+	"message": "success",
+	"data": {
+		"user_id": "string",
+		"report_id": "string",
+		"created_at": "string",
+		"delete_countdown": "string",
+		"latitude": "string",
+		"longitude": "string",
+		"image": "string",
+		"sign": "string",
+		"description": "string",
+		"result": {
+			"class": "string",
+			"probability": "string"
+		}
+	}
+}
+```
+
+- error return body
+
+```json
+{
+	"error": "string"
+}
+```
+
+#### Post report without image
+
+```http
+  POST {{url}}/api/report/capt
+```
+
+| Parameter   | Type     | Description   |
+| :---------- | :------- | :------------ |
+| `latitude`  | `string` | **Required**. |
+| `longitude` | `string` | **Required**. |
+| `sign`      | `string` | **Required**. |
+| `caption`   | `string` | **Required**. |
+
+- success return body
+
+```json
+{
+	"message": "success",
+	"data": {
+		"user_id": "string",
+		"report_id": "string",
+		"created_at": "string",
+		"delete_countdown": "string",
+		"latitude": "string",
+		"longitude": "string",
+		"image": "string",
+		"sign": "string",
+		"description": "string",
+		"result": {
+			"class": "string",
+			"probability": "string"
+		}
+	}
+}
+```
+
+- error return body
+
+```json
+{
+	"error": "string"
+}
+```
+
+#### Post report without image
+
+```http
+  POST {{url}}/api/chat
+```
+
+| Parameter | Type     | Description   |
+| :-------- | :------- | :------------ |
+| `caption` | `string` | **Required**. |
+
+- success return body
+
+```json
+{
+	"system": "success"
+}
+```
