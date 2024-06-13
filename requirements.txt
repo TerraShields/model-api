@@ -13,8 +13,8 @@ et-xmlfile==1.1
 exceptiongroup==1.2
 Flask==3.0
 Flask-JWT-Extended==4.6
-Flask-RESTful==0.3.
-flatbuffers==24.3.
+Flask-RESTful==0.3
+flatbuffers==24.3
 gast==0.4
 google-api-core==2.19
 google-auth==2.29
