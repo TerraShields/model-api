@@ -6,7 +6,6 @@ from http import HTTPStatus
 from validation import PredictValidation
 import uuid
 import os
-import time
 from dotenv import load_dotenv
 from util import groq_client, save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
 from load_model import image_classification

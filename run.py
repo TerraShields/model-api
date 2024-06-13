@@ -1,4 +1,3 @@
-import resources
 from flask import Flask
 from flask_restful import Api
 from google.cloud import firestore
@@ -25,6 +24,7 @@ app.config['ALLOWED_EXT'] = set(['png', 'jpg', 'jpeg'])
 app.config['MODEL_PATH'] = "./models/pest_label_classifier.h5"
 app.config['WIND_SPREAD_PATH'] = "./models/wind_spread_classifier_model.h5"
 
+import resources
 
 api.add_resource(resources.Predict, '/api/report')
 api.add_resource(resources.WithoutImage, '/api/report/capt')
