@@ -7,7 +7,7 @@ from validation import PredictValidation
 import uuid
 import os
 from dotenv import load_dotenv
-from util import groq_client, save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
+from util import save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
 from load_model import image_classification
 
 load_dotenv()
@@ -125,32 +125,32 @@ class WithoutImage(Resource):
             })
 
 
-class ChatBot(Resource):
-    @token_required
-    def post(self):
-        user_message = request.form['caption']
-        test_case = groq_client.chat.completions.create(
-            messages=[
-                {
-                    "role": "system",
-                    "content": "Kamu adalah Petani Yang Hebat Dan bisa menjawab semua masalah tentang pertanian. Nama anda adalah anita asisten dari HAPETANI. jika ada pertanyaan yang bukan tentang pertanian bilang saja anda tidak tahu"
-                },
-                {
-                    "role": "user",
-                    "content": user_message
-                }
-            ],
-            model="llama3-70b-8192",
-            temperature=0.5,
-            max_tokens=1024,
-            top_p=1,
-            stop=None,
-            stream=False,
-        )
+# class ChatBot(Resource):
+#     @token_required
+#     def post(self):
+#         user_message = request.form['caption']
+#         test_case = groq_client.chat.completions.create(
+#             messages=[
+#                 {
+#                     "role": "system",
+#                     "content": "Kamu adalah Petani Yang Hebat Dan bisa menjawab semua masalah tentang pertanian. Nama anda adalah anita asisten dari HAPETANI. jika ada pertanyaan yang bukan tentang pertanian bilang saja anda tidak tahu"
+#                 },
+#                 {
+#                     "role": "user",
+#                     "content": user_message
+#                 }
+#             ],
+#             model="llama3-70b-8192",
+#             temperature=0.5,
+#             max_tokens=1024,
+#             top_p=1,
+#             stop=None,
+#             stream=False,
+#         )
 
-        respon = test_case.choices[0].message.content
+#         respon = test_case.choices[0].message.content
 
-        result = {
-            "system": respon,
-        }
-        return result
+#         result = {
+#             "system": respon,
+#         }
+#         return result
