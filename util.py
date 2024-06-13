@@ -6,7 +6,14 @@ import os
 import uuid
 from google.cloud import storage
 from dotenv import load_dotenv
+from groq import Groq
+
 load_dotenv()
+
+groq_client = Groq(
+    api_key=os.environ.get('GROQ_API_KEY'),  # Masukan Api Key Groq ke Secrets
+)
+
 
 client = storage.Client(project=os.environ.get("GCP_PROJECT_ID"))
 bucket_name = os.environ.get("GCP_BUCKET_NAME")
