@@ -27,18 +27,20 @@
 {
 	"message": "success",
 	"data": {
-		"user_id": "string",
-		"report_id": "string",
-		"created_at": "string",
-		"delete_countdown": "string",
-		"latitude": "string",
-		"longitude": "string",
-		"image": "string",
-		"sign": "string",
-		"description": "string",
+		"user_id": "user-2a35342b-2f66-46fc-b6b1-0dee64f0cac8",
+		"report_id": "report-d3935ff0-f5ac-4c44-a06a-58f517a8428b",
+		"created_at": "2024-06-14T22:19:26.232367Z",
+		"delete_countdown": "2024-06-21T22:19:26.232367Z",
+		"image": "",
+		"sign": "sangat bahaya sekali gais",
+		"description": "",
+		"location": {
+			"_latitude": 90.0,
+			"_longitude": 180.0
+		},
 		"result": {
-			"class": "string",
-			"probability": "string"
+			"class": "bagaimana cara menanam padi yang baik dan benar",
+			"probability": ""
 		}
 	}
 }
@@ -71,18 +73,20 @@
 {
 	"message": "success",
 	"data": {
-		"user_id": "string",
-		"report_id": "string",
-		"created_at": "string",
-		"delete_countdown": "string",
-		"latitude": "string",
-		"longitude": "string",
-		"image": "string",
-		"sign": "string",
-		"description": "string",
+		"user_id": "user-2a35342b-2f66-46fc-b6b1-0dee64f0cac8",
+		"report_id": "report-d3935ff0-f5ac-4c44-a06a-58f517a8428b",
+		"created_at": "2024-06-14T22:19:26.232367Z",
+		"delete_countdown": "2024-06-21T22:19:26.232367Z",
+		"image": "",
+		"sign": "sangat bahaya sekali gais",
+		"description": "",
+		"location": {
+			"_latitude": 90.0,
+			"_longitude": 180.0
+		},
 		"result": {
-			"class": "string",
-			"probability": "string"
+			"class": "bagaimana cara menanam padi yang baik dan benar",
+			"probability": ""
 		}
 	}
 }
@@ -97,7 +101,8 @@
 ```
 
 # IN DEVELOPMENT (i hate py)
-#### Post Chat Bot 
+
+#### Post Chat Bot
 
 ```http
   POST {{url}}/api/chat

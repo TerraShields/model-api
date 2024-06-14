@@ -7,8 +7,9 @@ from validation import PredictValidation
 import uuid
 import os
 from dotenv import load_dotenv
-from util import groq_client, save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
+from util import save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
 from load_model import image_classification
+from google.cloud.firestore import GeoPoint
 
 load_dotenv()
 
@@ -31,8 +32,11 @@ class Predict(Resource):
                 created_at = convert_datetime_format(current_time)
                 delete_countdown = convert_and_add_days(current_time)
                 report_id = 'report-' + str(uuid.uuid4())
-                latitude = request.form['latitude']
-                longitude = request.form['longitude']
+                latitude = float(request.form['latitude'])
+                longitude = float(request.form['longitude'])
+
+                location = GeoPoint(latitude=latitude, longitude=longitude)
+
                 sign = request.form['sign']
                 image = f"https://storage.googleapis.com/{os.environ.get('GCP_BUCKET_NAME')}/{os.environ.get('GCP_REPORT_BUCKET_FOLDER')}/{filename}"
 
@@ -43,11 +47,10 @@ class Predict(Resource):
                         "report_id": report_id,
                         "created_at": created_at,
                         "delete_countdown": delete_countdown,
-                        "latitude": latitude,
-                        "longitude": longitude,
                         "image": image,
                         "sign": sign,
                         "description": "",
+                        "location": location,
                         "result": classification_result
                     }
                 }
@@ -61,7 +64,24 @@ class Predict(Resource):
 
                     return result
 
-                return data_input
+                data_return = {
+                    "message": "success",
+                    "data": {
+                        "user_id": user_id,
+                        "report_id": report_id,
+                        "created_at": created_at,
+                        "delete_countdown": delete_countdown,
+                        "image": image,
+                        "sign": sign,
+                        "description": "",
+                        "location": {
+                            "_latitude": location.latitude,
+                            "_longitude": location.longitude
+                        },
+                        "result": classification_result
+                    }
+                }
+                return data_return
 
             else:
                 return jsonify({
@@ -90,8 +110,10 @@ class WithoutImage(Resource):
             report_id = 'report-' + str(uuid.uuid4())
 
             caption = request.form['caption']
-            latitude = request.form['latitude']
-            longitude = request.form['longitude']
+            latitude = float(request.form['latitude'])
+            longitude = float(request.form['longitude'])
+
+            location = GeoPoint(latitude=latitude, longitude=longitude)
             sign = request.form['sign']
             image = ""
 
@@ -102,8 +124,7 @@ class WithoutImage(Resource):
                     "report_id": report_id,
                     "created_at": created_at,
                     "delete_countdown": delete_countdown,
-                    "latitude": latitude,
-                    "longitude": longitude,
+                    "location": location,
                     "image": image,
                     "sign": sign,
                     "description": "",
@@ -116,7 +137,27 @@ class WithoutImage(Resource):
 
             save_to_firestore(data_input)
 
-            return data_input
+            data_return = {
+                "message": "success",
+                "data": {
+                    "user_id": user_id,
+                    "report_id": report_id,
+                    "created_at": created_at,
+                    "delete_countdown": delete_countdown,
+                    "image": image,
+                    "sign": sign,
+                    "description": "",
+                    "location": {
+                        "_latitude": location.latitude,
+                        "_longitude": location.longitude
+                    },
+                    "result": {
+                        "class": caption,
+                        "probability": ""
+                    }
+                }
+            }
+            return data_return
 
         else:
             return jsonify({
@@ -125,32 +166,32 @@ class WithoutImage(Resource):
             })
 
 
-class ChatBot(Resource):
-    @token_required
-    def post(self):
-        user_message = request.form['caption']
-        test_case = groq_client.chat.completions.create(
-            messages=[
-                {
-                    "role": "system",
-                    "content": "Kamu adalah Petani Yang Hebat Dan bisa menjawab semua masalah tentang pertanian. Nama anda adalah anita asisten dari HAPETANI. jika ada pertanyaan yang bukan tentang pertanian bilang saja anda tidak tahu"
-                },
-                {
-                    "role": "user",
-                    "content": user_message
-                }
-            ],
-            model="llama3-70b-8192",
-            temperature=0.5,
-            max_tokens=1024,
-            top_p=1,
-            stop=None,
-            stream=False,
-        )
+# class ChatBot(Resource):
+#     @token_required
+#     def post(self):
+#         user_message = request.form['caption']
+#         test_case = groq_client.chat.completions.create(
+#             messages=[
+#                 {
+#                     "role": "system",
+#                     "content": "Kamu adalah Petani Yang Hebat Dan bisa menjawab semua masalah tentang pertanian. Nama anda adalah anita asisten dari HAPETANI. jika ada pertanyaan yang bukan tentang pertanian bilang saja anda tidak tahu"
+#                 },
+#                 {
+#                     "role": "user",
+#                     "content": user_message
+#                 }
+#             ],
+#             model="llama3-70b-8192",
+#             temperature=0.5,
+#             max_tokens=1024,
+#             top_p=1,
+#             stop=None,
+#             stream=False,
+#         )
 
-        respon = test_case.choices[0].message.content
+#         respon = test_case.choices[0].message.content
 
-        result = {
-            "system": respon,
-        }
-        return result
+#         result = {
+#             "system": respon,
+#         }
+#         return result

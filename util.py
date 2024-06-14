@@ -6,13 +6,13 @@ import os
 import uuid
 from google.cloud import storage
 from dotenv import load_dotenv
-from groq import Groq
+# from groq import Groq
 
 load_dotenv()
 
-groq_client = Groq(
-    api_key=os.environ.get('GROQ_API_KEY'),  # Masukan Api Key Groq ke Secrets
-)
+# groq_client = Groq(
+#     api_key=os.environ.get('GROQ_API_KEY'),  # Masukan Api Key Groq ke Secrets
+# )
 
 
 client = storage.Client(project=os.environ.get("GCP_PROJECT_ID"))
@@ -93,8 +93,7 @@ def save_to_firestore(data):
         'delete_countdown': data_input['delete_countdown'],
         'description': data_input['description'],
         'image': data_input['image'],
-        'latitude': data_input['latitude'],
-        'longitude': data_input['longitude'],
+        'location': data_input['location'],
         'user_id': data_input['user_id'],
         'report_id': data_input['report_id'],
         'sign': data_input['sign'],
