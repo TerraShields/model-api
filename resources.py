@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from util import save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
 from load_model import image_classification
 from google.cloud.firestore import GeoPoint
+import requests
 
 load_dotenv()
 
@@ -166,32 +167,19 @@ class WithoutImage(Resource):
             })
 
 
-# class ChatBot(Resource):
-#     @token_required
-#     def post(self):
-#         user_message = request.form['caption']
-#         test_case = groq_client.chat.completions.create(
-#             messages=[
-#                 {
-#                     "role": "system",
-#                     "content": "Kamu adalah Petani Yang Hebat Dan bisa menjawab semua masalah tentang pertanian. Nama anda adalah anita asisten dari HAPETANI. jika ada pertanyaan yang bukan tentang pertanian bilang saja anda tidak tahu"
-#                 },
-#                 {
-#                     "role": "user",
-#                     "content": user_message
-#                 }
-#             ],
-#             model="llama3-70b-8192",
-#             temperature=0.5,
-#             max_tokens=1024,
-#             top_p=1,
-#             stop=None,
-#             stream=False,
-#         )
+class Weather(Resource):
+    def post(self):
+        latitude = request.json['latitude']
+        longitude = request.json['longitude']
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {
+            "latitude": float(latitude),
+            "longitude": float(longitude),
+            "hourly": "temperature_2m,weather_code",
+            "timezone": "Asia/Bangkok",
+            "forecast_days": 1
+        }
 
-#         respon = test_case.choices[0].message.content
-
-#         result = {
-#             "system": respon,
-#         }
-#         return result
+        response = requests.get(url, params=params)
+        data = response.json()
+        return data
