@@ -6,7 +6,7 @@
 
 ### BASE URL
 
-- https://api-model-tpercgplna-et.a.run.app
+- 
 
 #### Post report with image
 
