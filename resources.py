@@ -7,7 +7,7 @@ from validation import PredictValidation
 import uuid
 import os
 from dotenv import load_dotenv
-from util import save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
+from util import weather_code, save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
 from load_model import image_classification
 from google.cloud.firestore import GeoPoint
 import requests
@@ -168,6 +168,7 @@ class WithoutImage(Resource):
 
 
 class Weather(Resource):
+    @token_required
     def post(self):
         latitude = request.json['latitude']
         longitude = request.json['longitude']
@@ -183,3 +184,31 @@ class Weather(Resource):
         response = requests.get(url, params=params)
         data = response.json()
         return data
+
+
+class Weather(Resource):
+    @token_required
+    def post(self):
+        latitude = request.json['latitude']
+        longitude = request.json['longitude']
+        url = "https://api.open-meteo.com/v1/forecast"
+        params = {
+            "latitude": float(latitude),
+            "longitude": float(longitude),
+            "timezone": "Asia/Bangkok",
+            "current": "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code"
+        }
+
+        response = requests.get(url, params=params)
+        data = response.json()
+
+        weather = weather_code(data['current']['weather_code'])
+
+        data_return = {
+            'temperature': data['current']['temperature_2m'],
+            'relative_humidity': data['current']['relative_humidity_2m'],
+            'feels_like': data['current']['apparent_temperature'],
+            "weather": weather,
+            'icon': "icon"
+        }
+        return data_return

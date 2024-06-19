@@ -10,20 +10,19 @@ model_classification = tf.keras.models.load_model(
     app.config['MODEL_PATH'], compile=False, custom_objects=custom_objects)
 
 classess = [
-    "ants",
-    "bees",
-    "beetle",
-    "catterpillar",
-    "earthworms",
-    "earwing",
-    "grasshopper",
-    "moth",
-    "slug",
-    "snail",
-    "wasp",
-    "weevil"
+    "Semut",
+    "Lebah",
+    "Kumbang",
+    "Ulat",
+    "Cacing tanah",
+    "Kutu kuping",
+    "Belalang",
+    "Ngengat",
+    "Siput tanpa rumah",
+    "Siput",
+    "Tawon",
+    "Kumbang Penggerek"
 ]
-
 
 def image_classification(req_image):
     img = Image.open(req_image).convert("RGB")
@@ -40,4 +39,3 @@ def image_classification(req_image):
     }
 
     return result
-

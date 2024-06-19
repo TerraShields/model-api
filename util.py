@@ -101,3 +101,38 @@ def save_to_firestore(data):
     })
 
     return data_input
+
+
+def weather_code(code):
+    if code == 0:
+        return "Clear sky"
+    elif code == 1:
+        return "Mainly clear"
+    elif code == 2:
+        return "partly cloudy"
+    elif code == 3:
+        return "Overcast"
+    elif code == 61:
+        return "Rain slight"
+    elif code == 63:
+        return "Rain moderate"
+    elif code == 65:
+        return "Rain heavy intensity"
+    elif code == 80:
+        return "Rain showers Slight"
+    elif code == 81:
+        return "Rain showers Moderate"
+    elif code == 82:
+        return "Rain showers violent"
+    elif code == 45:
+        return "Fog"
+    elif code == 48:
+        return "depositing rime fog"
+    elif code == 51:
+        return "Drizzle Light"
+    elif code == 53:
+        return "Drizzle Moderate"
+    elif code == 55:
+        return "Drizzle Dense Intensity"
+    else:
+        return "Clear Sky"
