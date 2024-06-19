@@ -9,6 +9,9 @@ custom_objects = {"KerasLayer": hub.KerasLayer}
 model_classification = tf.keras.models.load_model(
     app.config['MODEL_PATH'], compile=False, custom_objects=custom_objects)
 
+# wind_direction = tf.keras.models.load_model(
+#     app.config['WIND_DIRECTION_PATH'], compile=False, custom_objects=custom_objects)
+
 classess = [
     "Semut",
     "Lebah",
@@ -39,3 +42,11 @@ def image_classification(req_image):
     }
 
     return result
+
+# def wind():
+#     latitude = "-7.4020732"
+#     longitude = "109.7948854"
+#     result =wind_direction.predict(latitude, longitude)
+#     return result
+
+# wind()

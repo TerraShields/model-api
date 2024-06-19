@@ -1,3 +1,3 @@
 win_direction buat prediksi kemana arah pergerakannya parameter lokasi user
 avg_wind_speed buat prediksi seberapa jauh hama bergerak
-win spread menentukan hewan mana yang menyebar leawt udara
+win spread menentukan hama mana yang menyebar leawt udara

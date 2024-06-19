@@ -6,6 +6,8 @@ import os
 import uuid
 from google.cloud import storage
 from dotenv import load_dotenv
+import requests
+import random
 # from groq import Groq
 
 load_dotenv()
@@ -97,6 +99,7 @@ def save_to_firestore(data):
         'user_id': data_input['user_id'],
         'report_id': data_input['report_id'],
         'sign': data_input['sign'],
+        'prediction':data_input['prediction'],
         'classification_result': data_input['result']['class'],
     })
 
@@ -136,3 +139,31 @@ def weather_code(code):
         return "Drizzle Dense Intensity"
     else:
         return "Clear Sky"
+
+def get_desc(string, api_key):
+    url = "https://chat-api-tpercgplna-et.a.run.app/api/chat"
+    
+    headers = {
+        "Authorization": api_key,
+        "Content-Type": "application/json",
+    }
+    
+    data = {
+        "caption": string
+    }
+    
+    response = requests.post(url=url, headers=headers, json=data)
+
+    return response.json()
+
+
+def generate_random_list():
+    random_list = [0.0] * 9
+
+    random_index = random.randrange(9)
+
+    random_list[random_index] = 1.0
+    arah_keys = ["C", "E", "N", "NE", "NW", "S", "SE", "SW", "W"]
+    arah_object = dict(zip(arah_keys, random_list))
+    
+    return arah_object

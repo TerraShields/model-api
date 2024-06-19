@@ -7,7 +7,7 @@ from validation import PredictValidation
 import uuid
 import os
 from dotenv import load_dotenv
-from util import weather_code, save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
+from util import generate_random_list, get_desc, weather_code, save_to_gcs, allowed_files, convert_datetime_format, convert_and_add_days, get_current_time, save_to_firestore
 from load_model import image_classification
 from google.cloud.firestore import GeoPoint
 import requests
@@ -41,6 +41,8 @@ class Predict(Resource):
                 sign = request.form['sign']
                 image = f"https://storage.googleapis.com/{os.environ.get('GCP_BUCKET_NAME')}/{os.environ.get('GCP_REPORT_BUCKET_FOLDER')}/{filename}"
 
+                description = get_desc(classification_result['class'], request.headers['Authorization'])
+                
                 data_input = {
                     "message": "success",
                     "data": {
@@ -50,8 +52,9 @@ class Predict(Resource):
                         "delete_countdown": delete_countdown,
                         "image": image,
                         "sign": sign,
-                        "description": "",
+                        "description": description['system'],
                         "location": location,
+                        "prediction": generate_random_list(),
                         "result": classification_result
                     }
                 }
@@ -74,7 +77,8 @@ class Predict(Resource):
                         "delete_countdown": delete_countdown,
                         "image": image,
                         "sign": sign,
-                        "description": "",
+                        "description": description,
+                        "prediction": generate_random_list(),
                         "location": {
                             "_latitude": location.latitude,
                             "_longitude": location.longitude
@@ -117,6 +121,8 @@ class WithoutImage(Resource):
             location = GeoPoint(latitude=latitude, longitude=longitude)
             sign = request.form['sign']
             image = ""
+            
+            description = get_desc(caption, request.headers['Authorization'])
 
             data_input = {
                 "message": "success",
@@ -128,7 +134,8 @@ class WithoutImage(Resource):
                     "location": location,
                     "image": image,
                     "sign": sign,
-                    "description": "",
+                    "description": description,
+                    "prediction": generate_random_list(),
                     "result": {
                         "class": caption,
                         "probability": ""
@@ -147,7 +154,8 @@ class WithoutImage(Resource):
                     "delete_countdown": delete_countdown,
                     "image": image,
                     "sign": sign,
-                    "description": "",
+                    "description": description,
+                    "prediction": generate_random_list(),
                     "location": {
                         "_latitude": location.latitude,
                         "_longitude": location.longitude
@@ -165,25 +173,6 @@ class WithoutImage(Resource):
                 'code': HTTPStatus.BAD_REQUEST,
                 'message': "all field is required"
             })
-
-
-class Weather(Resource):
-    @token_required
-    def post(self):
-        latitude = request.json['latitude']
-        longitude = request.json['longitude']
-        url = "https://api.open-meteo.com/v1/forecast"
-        params = {
-            "latitude": float(latitude),
-            "longitude": float(longitude),
-            "hourly": "temperature_2m,weather_code",
-            "timezone": "Asia/Bangkok",
-            "forecast_days": 1
-        }
-
-        response = requests.get(url, params=params)
-        data = response.json()
-        return data
 
 
 class Weather(Resource):

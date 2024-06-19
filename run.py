@@ -22,7 +22,7 @@ app.config["JWT_ALGORITHM"] = "HS256"
 app.config["UPLOAD_FOLDER"] = "upload/"
 app.config['ALLOWED_EXT'] = set(['png', 'jpg', 'jpeg'])
 app.config['MODEL_PATH'] = "./models/pest_label_classifier.h5"
-app.config['WIND_SPREAD_PATH'] = "./models/wind_spread_classifier_model.h5"
+app.config['WIND_DIRECTION_PATH'] = "./models/wind_direction.h5"
 
 import resources
 
