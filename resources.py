@@ -77,7 +77,7 @@ class Predict(Resource):
                         "delete_countdown": delete_countdown,
                         "image": image,
                         "sign": sign,
-                        "description": description,
+                        "description": description['system'],
                         "prediction": generate_random_list(),
                         "location": {
                             "_latitude": location.latitude,
@@ -134,7 +134,7 @@ class WithoutImage(Resource):
                     "location": location,
                     "image": image,
                     "sign": sign,
-                    "description": description,
+                    "description": description['system'],
                     "prediction": generate_random_list(),
                     "result": {
                         "class": caption,
@@ -154,7 +154,7 @@ class WithoutImage(Resource):
                     "delete_countdown": delete_countdown,
                     "image": image,
                     "sign": sign,
-                    "description": description,
+                    "description": description['system'],
                     "prediction": generate_random_list(),
                     "location": {
                         "_latitude": location.latitude,
