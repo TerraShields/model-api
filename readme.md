@@ -29,11 +29,21 @@
 	"data": {
 		"user_id": "user-2a35342b-2f66-46fc-b6b1-0dee64f0cac8",
 		"report_id": "report-d3935ff0-f5ac-4c44-a06a-58f517a8428b",
-		"created_at": "2024-06-14T22:19:26.232367Z",
-		"delete_countdown": "2024-06-21T22:19:26.232367Z",
-		"image": "",
-		"sign": "sangat bahaya sekali gais",
-		"description": "",
+		"created_at": "2024-06-14T22:19:26.232367Z"
+		"image": "string",
+		"sign": "string",
+		"description": "string",
+		"prediction": {
+	            "C": 0.0,
+	            "E": 0.0,
+	            "N": 0.0,
+	            "NE": 0.0,
+	            "NW": 0.0,
+	            "S": 0.0,
+	            "SE": 1.0,
+	            "SW": 0.0,
+	            "W": 0.0
+	        },
 		"location": {
 			"_latitude": 90.0,
 			"_longitude": 180.0
@@ -80,6 +90,17 @@
 		"image": "",
 		"sign": "sangat bahaya sekali gais",
 		"description": "",
+		"prediction": {
+		            "C": 0.0,
+		            "E": 0.0,
+		            "N": 0.0,
+		            "NE": 0.0,
+		            "NW": 0.0,
+		            "S": 0.0,
+		            "SE": 1.0,
+		            "SW": 0.0,
+		            "W": 0.0
+		        },
 		"location": {
 			"_latitude": 90.0,
 			"_longitude": 180.0
